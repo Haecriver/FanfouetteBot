@@ -35,6 +35,7 @@ jobs:
           
   dockerize:
     runs-on: ubuntu-latest
+    needs: checkAndBuild
 
     steps:
     - name: Checkout repository
