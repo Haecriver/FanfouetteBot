@@ -1,0 +1,81 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on: push
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Run yarn
+      run: yarn
+    - name: Archive node_modules
+      uses: actions/upload-artifact@v2
+      with:
+        name: node_modules
+        path: node_modules
+        retention-hours: 3
+          
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Download node_modules
+      uses: actions/download-artifact@v2
+      with:
+        name: node_modules
+    - name: test & lint
+      run: yarn lint
+
+  buildTS:
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Download node_modules
+      uses: actions/download-artifact@v2
+      with:
+        name: node_modules
+    - name: build ts files
+      run: yarn build
+    - name: Archive builded js
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist
+        retention-hours: 3
+
