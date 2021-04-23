@@ -4,6 +4,7 @@
 
 // Import the discord.js module
 import { Client } from 'discord.js';
+import { token } from './settings.json';
 
 // Create an instance of a Discord client
 const client = new Client();
@@ -27,4 +28,4 @@ client.on('message', message => {
 });
 
 // Log our bot in using the token from https://discord.com/developers/applications
-client.login('MzI0NjQ4NzY0NTk1NzY1MjUw.WUGeuQ.DfAL6-NmGYiY5-JzA2pjDTlVQ28');
+client.login(token);
