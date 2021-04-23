@@ -40,6 +40,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      
+    - name: Get lite node_modules
+      run: yarn --prod
 
     - name: Download builded app
       uses: actions/download-artifact@v2
