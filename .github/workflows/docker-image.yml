@@ -6,7 +6,7 @@ name: Node.js CI
 on: push
 
 jobs:
-  setup:
+  checkAndBuild:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,56 +16,36 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 12.x
-    - name: run yarn
+
+    - name: setup yarn
       run: yarn
-    - name: Archive node_modules
-      uses: actions/upload-artifact@v2
-      with:
-        name: node_modules
-        path: node_modules
-        retention-days: 1
-          
-  test:
-    runs-on: ubuntu-latest
-    needs: setup
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Setup node
-      uses: actions/setup-node@v2
-      with:
-        node-version: 12.x
-    - name: Download node_modules
-      uses: actions/download-artifact@v2
-      with:
-        name: node_modules
-    - name: test & lint
-      run: |
-        ls -l
-        yarn lint
-
-  buildTS:
-    runs-on: ubuntu-latest
-    needs: setup
-        
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Setup node
-      uses: actions/setup-node@v2
-      with:
-        node-version: 12.x
-    - name: Download node_modules
-      uses: actions/download-artifact@v2
-      with:
-        name: node_modules
+    - name: linter
+      run: yarn lint
+ 
     - name: build ts files
       run: yarn build
+      
     - name: Archive builded js
       uses: actions/upload-artifact@v2
       with:
         name: dist
         path: dist
         retention-days: 1
+          
+  dockerize:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+    - uses: actions/checkout@v2
+    - name: Download builded app
+      uses: actions/download-artifact@v2
+      with:
+        name: dist
+        path: dist
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag fanfouette-bot:$(date +%s)
+    - name: Check image
+      run: docker images
 
