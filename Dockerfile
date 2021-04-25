@@ -12,4 +12,4 @@ COPY ./node_modules ./node_modules
 COPY dist ./
 
 # Start me!
-CMD ["node", "index.js"]
+CMD node index.js --token $TOKEN
