@@ -23,6 +23,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
     - name: Setup node
       uses: actions/setup-node@v2
       with:
@@ -56,6 +57,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      
+    - name: Set up Docker Buildx      
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:        
+        version: latest
       
     - name: Get lite node_modules
       run: yarn --prod
