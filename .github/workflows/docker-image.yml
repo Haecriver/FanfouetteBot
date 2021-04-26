@@ -72,7 +72,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Prepare env
+    - name: Build and push
       run: |
           IMAGE_ID=${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME
     
@@ -87,12 +87,10 @@ jobs:
           
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
-          
-    - name: Run Buildx & Push image
-      if: success()      
-      run: |        
-        docker buildx build \        
-        --platform $DOCKER_TARGET_PLATFORM \             
-        --tag $IMAGE_NAME $IMAGE_ID:$VERSION \        
-        --file ./Dockerfile \        
-        --output type=image,push=true .
+     
+          # Build and push
+          docker buildx build \    
+            --platform $DOCKER_TARGET_PLATFORM \             
+            --tag $IMAGE_NAME $IMAGE_ID:$VERSION \        
+            --file ./Dockerfile \        
+            --output type=image,push=true .
