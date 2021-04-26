@@ -12,4 +12,4 @@ COPY ./node_modules ./node_modules
 COPY dist ./
 
 # Start me!
-CMD node index.js --token $TOKEN
+CMD node index.js --tokenFile $TOKEN_PATH
