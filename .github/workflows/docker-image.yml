@@ -95,8 +95,7 @@ jobs:
           [ "$VERSION" == "master" ] && VERSION=latest
      
           # Build and push
-          docker buildx build \    
-            --platform $DOCKER_TARGET_PLATFORM \             
-            --tag $IMAGE_NAME $IMAGE_ID:$VERSION \        
-            --file ./Dockerfile \        
+          docker buildx build \
+            --platform $DOCKER_TARGET_PLATFORM \
+            --tag $IMAGE_NAME $IMAGE_ID:$VERSION \
             --output type=image,push=true .
