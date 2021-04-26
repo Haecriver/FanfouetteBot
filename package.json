@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "start:dev": "node dist/index.js --tokenFile ./dtoken",
+    "start:dev": "yarn build && node dist/index.js --configPath ./config.json",
     "lint": "tslint -c tslint.json src/**/*.ts"
   },
   "repository": {

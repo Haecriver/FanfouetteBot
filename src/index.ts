@@ -10,8 +10,9 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 const argv = yargs(hideBin(process.argv)).argv
+const CONFIG = process.env || JSON.parse(catFile(argv.configPath as string))
 
-const dtoken: string = argv.token as string || catFile(argv.tokenFile as string);
+const dtoken: string = CONFIG.discordToken;
 
 if (!dtoken) {
     console.error('Fatal error : No token provided !')
