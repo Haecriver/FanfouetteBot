@@ -8,6 +8,8 @@ import { Client } from 'discord.js';
 import { catFile } from './tools/catFile';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import Bot from './Bot';
+import PingPongMondule from './modules/PingPongModule/PingPongModule';
 
 const argv = yargs(hideBin(process.argv)).argv
 const CONFIG = process.env || JSON.parse(catFile(argv.configJSONPath as string))
@@ -19,31 +21,8 @@ if (!dtoken) {
     process.exit();
 }
 
-// Create an instance of a Discord client
-const client = new Client();
+const activatedModules = [
+    new PingPongMondule()
+];
 
-/**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
- */
-client.on('ready', () => {
-    // tslint:disable-next-line no-console
-    console.log('I am ready!');
-});
-
-// Create an event listener for messages
-client.on('message', message => {
-    // If the message is "ping"
-    if (message.content === 'ping') {
-        // Send "pong" to the same channel
-        message.channel.send('poooing');
-    }
-});
-
-try {
-    // Log our bot in using the token from https://discord.com/developers/applications
-    client.login(dtoken);
-} catch (error) {
-    console.error(error);
-    process.exit();
-}
+const bot: Bot = new Bot(dtoken, activatedModules);
