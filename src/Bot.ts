@@ -1,35 +1,13 @@
-// tslint:disable: no-submodule-imports
-
-// Import the discord.js module
 import { Client } from 'discord.js';
-import { catFile } from './tools/catFile';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import IBotModules from './modules/IBotModule';
+import BotParameters from './models/BotParameters';
+import Logger from './logger/LoggerSingleton';
 
 class Bot {
     // Create an instance of a Discord client
-    public client: Client = new Client();
+    private client: Client = new Client();
 
-    public modules: IBotModules[] = [];
-
-    private subscribeToEvents() {
-        /**
-         * The ready event is vital, it means that only _after_ this will your bot start reacting to information
-         * received from Discord
-         */
-        this.client.on('ready', () => {
-            // tslint:disable-next-line no-console
-            console.log('I am ready!');
-        });
-
-        // Create an event listener for messages
-        this.client.on('message', message => {
-            this.modules.forEach((module) => module.onMessage(message));
-        });
-    }
-
-    public constructor(token: string, modules: IBotModules[]) {
+    public constructor(token: string, public modules: IBotModules[], public parameters: BotParameters) {
         this.modules = [...modules];
         this.subscribeToEvents();
 
@@ -40,6 +18,26 @@ class Bot {
             console.error(error);
             process.exit();
         }
+    }
+
+    private subscribeToEvents() {
+        /**
+         * The ready event is vital, it means that only _after_ this will your bot start reacting to information
+         * received from Discord
+         */
+        this.client.on('ready', () => {
+            // tslint:disable-next-line no-console
+            Logger.log('Salut !');
+        });
+
+        // Create an event listener for messages
+        this.client.on('message', message => {
+            this.modules.forEach((module) => module.onMessage(message));
+        });
+
+        this.client.on('disconnect', () => {
+            Logger.log('Adieu !');
+        })
     }
 }
 
