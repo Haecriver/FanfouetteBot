@@ -12,7 +12,7 @@ export default class ConsoleLogger implements ILogger {
     }
 
     public error(msg: string) {
-        console.error(msg);
+        console.error(msg, new Error().stack);
     }
 
     public warn(msg: string) {

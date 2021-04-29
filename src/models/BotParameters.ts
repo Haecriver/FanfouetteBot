@@ -1,9 +1,6 @@
 class BotParameters {
+    public _id: string;
     public logChannelId: string;
-
-    toJson() {
-        return JSON.stringify(this);
-    }
 }
 
 export default BotParameters;

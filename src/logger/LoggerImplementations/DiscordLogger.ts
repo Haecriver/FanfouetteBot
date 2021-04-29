@@ -1,11 +1,11 @@
-import { TextChannel, MessageEmbed } from "discord.js";
+import { TextChannel, MessageEmbed, Channel } from "discord.js";
 import ILogger from "../ILogger";
 
 export default class DiscordLogger implements ILogger {
 
     private channel: TextChannel;
 
-    public constructor(channel : any) {
+    public constructor(channel : Channel) {
         if (channel && channel instanceof TextChannel) {
             this.channel = channel as TextChannel;
         }

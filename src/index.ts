@@ -5,8 +5,9 @@ import MultipleLogger from './logger/LoggerImplementations/MultipleLogger';
 import ConsoleLogger from './logger/LoggerImplementations/ConsoleLogger';
 import DiscordLogger from './logger/LoggerImplementations/DiscordLogger';
 import { LoggerSingleton } from './logger/LoggerSingleton';
-import Dao from './dao/Dao';
+import DaoSingleton from './dao/DaoSingleton';
 import EDaoType from './dao/EDaoType';
+import ParametersModuleSingleton from './modules/ParametersModuleSingleton/ParametersModuleSingleton';
 
 // Init me token
 const CONFIG = process.env
@@ -17,19 +18,14 @@ if (!dtoken) {
     process.exit();
 }
 
+// Init DAO
+DaoSingleton.initDao(EDaoType.Mongo, process.env.DATABASE_URI, process.env.DATABASE_NAME);
+
 // Init me module list
 const activatedModules = [
-    new PingPongMondule()
+    new PingPongMondule(),
+    ParametersModuleSingleton.getInstance(),
 ];
 
-// Init me DAO to get me parameters
-const parameters = new BotParameters();
-
-// Init DAO
-Dao.initDao(EDaoType.Mongo, process.env.DATABASE_URI, process.env.DATABASE_NAME);
-
-// Init parameters
-LoggerSingleton.setParameters(parameters);
-
 // Init ZE bot
-const bot: Bot = new Bot(dtoken, activatedModules, parameters);
+const bot: Bot = new Bot(dtoken, activatedModules);

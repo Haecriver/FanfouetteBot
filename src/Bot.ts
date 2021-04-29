@@ -1,14 +1,16 @@
 import { Client } from 'discord.js';
-import IBotModules from './modules/IBotModule';
-import BotParameters from './models/BotParameters';
+import ABotModules from './modules/ABotModule';
 import Logger from './logger/LoggerSingleton';
 
 class Bot {
     // Create an instance of a Discord client
     private client: Client = new Client();
 
-    public constructor(token: string, public modules: IBotModules[], public parameters: BotParameters) {
+    public constructor(token: string, public modules: ABotModules[]) {
         this.modules = [...modules];
+        this.modules.forEach(module => {
+            module.init(this.client);
+        });
         this.subscribeToEvents();
 
         try {

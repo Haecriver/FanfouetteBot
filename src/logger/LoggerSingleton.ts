@@ -1,3 +1,4 @@
+import { Channel } from "discord.js";
 import BotParameters from "../models/BotParameters";
 import ConsoleLogger from "./LoggerImplementations/ConsoleLogger";
 import DiscordLogger from "./LoggerImplementations/DiscordLogger";
@@ -7,16 +8,16 @@ export class LoggerSingleton {
     private constructor() {};
     private static instance = null;
 
-    private static createMultipleLoggerInstance(parameters?: BotParameters) {
+    private static createMultipleLoggerInstance(channel?: Channel) {
         const loggerList = [new ConsoleLogger()];
-        if (parameters && parameters.logChannelId) {
-            loggerList.push(new DiscordLogger(parameters.logChannelId));
+        if (channel) {
+            loggerList.push(new DiscordLogger(channel));
         }
         return new MultipleLogger(loggerList);
     }
 
-    public static setParameters(parameters: BotParameters)  {
-        LoggerSingleton.instance = LoggerSingleton.createMultipleLoggerInstance(parameters);
+    public static setLogChannel(channel: Channel)  {
+        LoggerSingleton.instance = LoggerSingleton.createMultipleLoggerInstance(channel);
     }
 
     public static getInstance() {
