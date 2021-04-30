@@ -18,14 +18,17 @@ const INSULTS = [
 ];
 
 export default class BullyModule extends ACommandModule {
-    private usersToBully: Map<Snowflake, string[]> = new Map();
+    private usersToBully: Map<Snowflake, { availableInsults: string[], infinite: boolean }> = new Map();
 
     public constructor(){
         super();
-        this.addCommand('bully', (message, [username]) => {
+        this.addCommand('bully', (message, [username, infinite]) => {
             const match = new RegExp(MessageMentions.USERS_PATTERN).exec(username);
             if (match) {
-                this.usersToBully.set(match[1], []);
+                this.usersToBully.set(match[1], {
+                    availableInsults: [...INSULTS],
+                    infinite: !infinite || infinite === "true"
+                });
             }
         });
 
@@ -40,21 +43,22 @@ export default class BullyModule extends ACommandModule {
     protected onSimpleMessage = (message: Message) => {
         const userId: Snowflake = message.author.id;
         if (this.usersToBully.has(userId)) {
-            // refill array
-            if (this.usersToBully.get(userId).length === 0) {
-                this.usersToBully.set(userId, [...INSULTS]);
-            }
+            const { availableInsults, infinite } = this.usersToBully.get(userId);
 
             // Get insult
-            const availableInsults = this.usersToBully.get(userId);
             const index = Math.floor(Math.random() * availableInsults.length);
 
             // remove it from the array
             const [insult] = availableInsults.splice(index, 1);
-            this.usersToBully.set(userId, availableInsults);
+            this.usersToBully.set(userId, { availableInsults, infinite });
 
             // send it
             message.channel.send(insult.replace("%user", `<@!${userId}>`));
+
+            // refill array if needed
+            if (availableInsults.length === 0 && infinite) {
+                this.usersToBully.set(userId,  { availableInsults: [...INSULTS], infinite });
+            }
         }
     };
 
