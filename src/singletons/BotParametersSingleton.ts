@@ -7,7 +7,7 @@ const EVENT_PARAMETER_UPDATED = "botParametersUpdated";
 
 export default class BotParametersSingleton {
     private botParameters: BotParameters = null;
-    public getBotParameters = () => this.botParameters;
+    public getBotParameters: () => BotParameters = () => this.botParameters || new BotParameters();
 
     private static instance: BotParametersSingleton = null;
     public static getInstance = () => {

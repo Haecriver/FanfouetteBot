@@ -11,7 +11,7 @@ class PingPongMondule extends ACommandModule {
         this.addCommand('ping', (message) => {
             // Send "pong" to the same channel
             message.channel.send('pong');
-            Logger.log(`ping, check ${BotParametersSingleton.getInstance().getBotParameters().logChannelId}`);
+            Logger.log(`ping, check <#${BotParametersSingleton.getInstance().getBotParameters().logChannelId}>`);
         });
     }
 }

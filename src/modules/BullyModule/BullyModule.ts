@@ -27,16 +27,16 @@ export default class BullyModule extends ACommandModule {
             const match = new RegExp(MessageMentions.USERS_PATTERN).exec(rawUserId);
             if (match) {
                 this.usersToBully.set(match[1], []);
+                Logger.log(`bullying ${rawUserId}`);
             }
-            Logger.log(`bullying ${rawUserId}`);
         });
 
         this.addCommand('unbully', (message, [rawUserId]) => {
             const match = new RegExp(MessageMentions.USERS_PATTERN).exec(rawUserId);
             if (match) {
                 this.usersToBully.delete(match[1]);
+                Logger.log(`unbullying ${rawUserId}`);
             }
-            Logger.log(`unbullying ${rawUserId}`);
         });
     }
 
