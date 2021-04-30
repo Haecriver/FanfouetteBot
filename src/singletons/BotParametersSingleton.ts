@@ -76,10 +76,13 @@ export default class BotParametersSingleton {
 
     public fireClientIsReady = () => {
         // When the client is connected we fire the event of parameters (in case we miss an initialization)
-        this.botParametersUpdateEmitter.emit(
-            EVENT_PARAMETER_UPDATED,
-            {},
-            this.botParameters
-        );
+        // If there is no botParameters, this means the db has not been initialized yet
+        if (this.botParameters) {
+            this.botParametersUpdateEmitter.emit(
+                EVENT_PARAMETER_UPDATED,
+                {},
+                this.botParameters
+            );
+        }
     }
 }

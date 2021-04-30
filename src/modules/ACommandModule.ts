@@ -1,5 +1,4 @@
 import { Message, Snowflake } from "discord.js";
-import Logger from "../logger/Logger";
 import ABotModules from "./ABotModule";
 import BotParametersSingleton from "../singletons/BotParametersSingleton";
 

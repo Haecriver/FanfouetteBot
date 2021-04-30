@@ -1,6 +1,4 @@
 import { Channel, TextChannel, Message } from "discord.js";
-import { EventEmitter } from "events";
-import DaoSingleton from "../../dao/DaoSingleton";
 import ACommandModule from "../ACommandModule";
 import LoggerSingleton from "../../singletons/LoggerSingleton";
 import BotParametersSingleton from "../../singletons/BotParametersSingleton";
