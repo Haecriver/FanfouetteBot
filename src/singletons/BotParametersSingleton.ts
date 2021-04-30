@@ -69,7 +69,7 @@ export default class BotParametersSingleton {
 
     private botParametersUpdateEmitter: EventEmitter = new EventEmitter();
     public onBotParametersUpdated = (
-        callback: (oldParameters: BotParameters, newParameters: BotParameters) => void
+        callback: (newParameters: BotParameters, oldParameters?: BotParameters) => void
     ) => {
         this.botParametersUpdateEmitter.addListener(EVENT_PARAMETER_UPDATED, callback);
     }
@@ -80,8 +80,8 @@ export default class BotParametersSingleton {
         if (this.botParameters) {
             this.botParametersUpdateEmitter.emit(
                 EVENT_PARAMETER_UPDATED,
-                {},
-                this.botParameters
+                this.botParameters,
+                null
             );
         }
     }

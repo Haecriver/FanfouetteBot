@@ -24,12 +24,18 @@ class Bot {
         }
 
         // When everything's ready, update the logger
-        ParametersModuleSingleton.getInstance().onBotParametersUpdated((oldParameters, newParameters) => {
+        ParametersModuleSingleton.getInstance().onBotParametersUpdated((newParameters, oldParameters) => {
             // Set log channel we can
             if (newParameters.logChannelId) {
                 this.client.channels.fetch(newParameters.logChannelId)
                     .then((channel) => {
                         LoggerSingleton.setLogChannel(channel);
+
+                        // First time we have parameters
+                        // We can send a log on the dedicated channel
+                        if (oldParameters === null) {
+                            Logger.log("I have been reborn");
+                        }
                     })
                     .catch((reason) => {
                         Logger.error(reason);

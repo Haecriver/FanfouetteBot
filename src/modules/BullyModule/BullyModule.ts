@@ -1,4 +1,5 @@
 import { Message, MessageMentions, Snowflake } from "discord.js";
+import Logger from "../../logger/Logger";
 import ACommandModule from "../ACommandModule";
 
 const INSULTS = [
@@ -22,18 +23,20 @@ export default class BullyModule extends ACommandModule {
 
     public constructor(){
         super();
-        this.addCommand('bully', (message, [username]) => {
-            const match = new RegExp(MessageMentions.USERS_PATTERN).exec(username);
+        this.addCommand('bully', (message, [rawUserId]) => {
+            const match = new RegExp(MessageMentions.USERS_PATTERN).exec(rawUserId);
             if (match) {
                 this.usersToBully.set(match[1], []);
             }
+            Logger.log(`bullying ${rawUserId}`);
         });
 
-        this.addCommand('unbully', (message, [username]) => {
-            const match = new RegExp(MessageMentions.USERS_PATTERN).exec(username);
+        this.addCommand('unbully', (message, [rawUserId]) => {
+            const match = new RegExp(MessageMentions.USERS_PATTERN).exec(rawUserId);
             if (match) {
                 this.usersToBully.delete(match[1]);
             }
+            Logger.log(`unbullying ${rawUserId}`);
         });
     }
 

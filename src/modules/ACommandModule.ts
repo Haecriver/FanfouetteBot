@@ -12,7 +12,7 @@ export default abstract class ACommandModule extends ABotModules {
         super();
         this.regexStr = `^${this.commandChar}\\ ?((?:\\S*\\ )*\\S+)`;
 
-        BotParametersSingleton.getInstance().onBotParametersUpdated((oldParameters, newParameters) => {
+        BotParametersSingleton.getInstance().onBotParametersUpdated((newParameters) => {
             this.admins = [process.env.ADMIN_ID, ...(newParameters.admins || [])];
         });
     }
