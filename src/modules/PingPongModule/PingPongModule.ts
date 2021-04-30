@@ -1,19 +1,20 @@
 import { Message } from "discord.js";
-import Logger from "../../logger/LoggerSingleton";
+import Logger from "../../logger/Logger";
 import ABotModules from "../ABotModule";
-import ParametersModuleSingleton from "../ParametersModuleSingleton/ParametersModuleSingleton";
+import ACommandModule from "../ACommandModule";
+import BotParametersSingleton from "../../singletons/BotParametersSingleton";
 
-class PingPongMondule extends ABotModules {
-    protected onNotBotMessage = (message: Message) => {
-        // If the message is "ping"
-        if (message.content === 'ping') {
+class PingPongMondule extends ACommandModule {
+    protected onSimpleMessage: (message: Message) => void = null;
+
+    public constructor(){
+        super();
+        this.addCommand('ping', (message) => {
             // Send "pong" to the same channel
-            message.channel.send(
-                `ping, check ${ParametersModuleSingleton.getInstance().getBotParameters().logChannelId}`,
-            );
-            Logger.log('ping');
-        }
-    };
+            message.channel.send('pong');
+            Logger.log(`ping, check ${BotParametersSingleton.getInstance().getBotParameters().logChannelId}`);
+        });
+    }
 }
 
 export default PingPongMondule;

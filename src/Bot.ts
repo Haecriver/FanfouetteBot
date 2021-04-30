@@ -1,6 +1,8 @@
 import { Client } from 'discord.js';
 import ABotModules from './modules/ABotModule';
-import Logger from './logger/LoggerSingleton';
+import Logger from './logger/Logger';
+import ParametersModuleSingleton from './singletons/BotParametersSingleton';
+import LoggerSingleton from './singletons/LoggerSingleton';
 
 class Bot {
     // Create an instance of a Discord client
@@ -20,6 +22,20 @@ class Bot {
             console.error(error);
             process.exit();
         }
+
+        // When everything's ready, update the logger
+        ParametersModuleSingleton.getInstance().onBotParametersUpdated((oldParameters, newParameters) => {
+            // Set log channel we can
+            if (newParameters.logChannelId) {
+                this.client.channels.fetch(newParameters.logChannelId)
+                    .then((channel) => {
+                        LoggerSingleton.setLogChannel(channel);
+                    })
+                    .catch((reason) => {
+                        Logger.error(reason);
+                    });
+            }
+        })
     }
 
     private subscribeToEvents() {
@@ -28,7 +44,7 @@ class Bot {
          * received from Discord
          */
         this.client.on('ready', () => {
-            // tslint:disable-next-line no-console
+            ParametersModuleSingleton.getInstance().fireClientIsReady();
             Logger.log('Salut !');
         });
 

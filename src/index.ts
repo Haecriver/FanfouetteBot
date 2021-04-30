@@ -1,13 +1,8 @@
 import Bot from './Bot';
 import PingPongMondule from './modules/PingPongModule/PingPongModule';
-import BotParameters from './models/BotParameters';
-import MultipleLogger from './logger/LoggerImplementations/MultipleLogger';
-import ConsoleLogger from './logger/LoggerImplementations/ConsoleLogger';
-import DiscordLogger from './logger/LoggerImplementations/DiscordLogger';
-import { LoggerSingleton } from './logger/LoggerSingleton';
 import DaoSingleton from './dao/DaoSingleton';
 import EDaoType from './dao/EDaoType';
-import ParametersModuleSingleton from './modules/ParametersModuleSingleton/ParametersModuleSingleton';
+import ParametersModule from './modules/ParametersModule/ParametersModule';
 
 // Init me token
 const CONFIG = process.env
@@ -24,7 +19,7 @@ DaoSingleton.initDao(EDaoType.Mongo, process.env.DATABASE_URI, process.env.DATAB
 // Init me module list
 const activatedModules = [
     new PingPongMondule(),
-    ParametersModuleSingleton.getInstance(),
+    new ParametersModule(),
 ];
 
 // Init ZE bot

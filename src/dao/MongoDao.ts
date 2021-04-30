@@ -1,5 +1,5 @@
 import { Db, MongoClient } from 'mongodb';
-import Logger from '../logger/LoggerSingleton';
+import Logger from '../logger/Logger';
 import IDao from './IDao';
 import BotParameters from '../models/BotParameters';
 import ICRUD from './CRUD/ICRUD';

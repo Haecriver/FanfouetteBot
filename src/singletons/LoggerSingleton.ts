@@ -1,10 +1,9 @@
 import { Channel } from "discord.js";
-import BotParameters from "../models/BotParameters";
-import ConsoleLogger from "./LoggerImplementations/ConsoleLogger";
-import DiscordLogger from "./LoggerImplementations/DiscordLogger";
-import MultipleLogger from "./LoggerImplementations/MultipleLogger";
+import ConsoleLogger from "../logger/LoggerImplementations/ConsoleLogger";
+import DiscordLogger from "../logger/LoggerImplementations/DiscordLogger";
+import MultipleLogger from "../logger/LoggerImplementations/MultipleLogger";
 
-export class LoggerSingleton {
+export default class LoggerSingleton {
     private constructor() {};
     private static instance = null;
 
@@ -27,12 +26,3 @@ export class LoggerSingleton {
         return LoggerSingleton.instance;
     }
 }
-
-const Logger = {
-    log: (msg: string) => LoggerSingleton.getInstance().log(msg),
-    info: (msg: string) => LoggerSingleton.getInstance().info(msg),
-    error: (msg: string) => LoggerSingleton.getInstance().error(msg),
-    warn: (msg: string) => LoggerSingleton.getInstance().warn(msg),
-};
-
-export default Logger;

@@ -1,19 +1,35 @@
-import { Message } from "discord.js";
-import Logger from "../logger/LoggerSingleton";
+import { Message, Snowflake } from "discord.js";
+import Logger from "../logger/Logger";
 import ABotModules from "./ABotModule";
+import BotParametersSingleton from "../singletons/BotParametersSingleton";
 
 export default abstract class ACommandModule extends ABotModules {
 
     private regexStr: string = null;
     private commandMap: Map<string, (message: Message, args: string[]) => void> = new Map();
+    private admins: Snowflake[] = [process.env.ADMIN_ID];
 
     constructor(private commandChar: string = '\\/') {
         super();
         this.regexStr = `^${this.commandChar}\\ ?((?:\\w*\\ )*\\w+)`;
+
+        BotParametersSingleton.getInstance().onBotParametersUpdated((oldParameters, newParameters) => {
+            this.admins = [process.env.ADMIN_ID, ...(newParameters.admins || [])];
+        });
     }
 
     protected onNotBotMessage = (message: Message) => {
-        const match = new RegExp(this.regexStr, 'g').exec(message.cleanContent);
+        // Is author an admin
+        const adminMessage = this.admins.includes(message.author.id);
+
+
+        // I dont want to compute the RegExp needlessy
+        let match : string[] = null;
+        if (adminMessage) {
+            // Is message a command
+            match = new RegExp(this.regexStr, 'g').exec(message.cleanContent);
+        }
+
         if (match) {
             const command: string = match[1]; // We take the first group
             const [ commandKey, ...argv ] = command.split(/\s+/);
@@ -21,10 +37,8 @@ export default abstract class ACommandModule extends ABotModules {
             const commandCallback = this.commandMap[commandKey];
             if (commandCallback){
                 commandCallback(message, [...argv]);
-            } else {
-                Logger.error(`${commandKey} command does not exist !`);
             }
-        } else if (this.onSimpleMessage) {
+        } else if (this.onSimpleMessage) { // if not admin or not command
             this.onSimpleMessage(message);
         }
     }

@@ -1,7 +1,7 @@
 import { MongoDao } from "./MongoDao";
 import IDao from "./IDao";
 import EDaoType from "./EDaoType";
-import Logger from "../logger/LoggerSingleton";
+import Logger from "../logger/Logger";
 
 export default class DaoSingleton {
 
