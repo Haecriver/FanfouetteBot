@@ -1,6 +1,5 @@
 import { Message } from "discord.js";
 import Logger from "../../logger/Logger";
-import ABotModules from "../ABotModule";
 import ACommandModule from "../ACommandModule";
 import BotParametersSingleton from "../../singletons/BotParametersSingleton";
 

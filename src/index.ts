@@ -3,6 +3,7 @@ import PingPongMondule from './modules/PingPongModule/PingPongModule';
 import DaoSingleton from './dao/DaoSingleton';
 import EDaoType from './dao/EDaoType';
 import ParametersModule from './modules/ParametersModule/ParametersModule';
+import BullyModule from './modules/BullyModule/BullyModule';
 
 // Init me token
 const CONFIG = process.env
@@ -20,6 +21,7 @@ DaoSingleton.initDao(EDaoType.Mongo, process.env.DATABASE_URI, process.env.DATAB
 const activatedModules = [
     new PingPongMondule(),
     new ParametersModule(),
+    new BullyModule(),
 ];
 
 // Init ZE bot

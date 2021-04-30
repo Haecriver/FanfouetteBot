@@ -11,7 +11,7 @@ export default abstract class ACommandModule extends ABotModules {
 
     constructor(private commandChar: string = '\\/') {
         super();
-        this.regexStr = `^${this.commandChar}\\ ?((?:\\w*\\ )*\\w+)`;
+        this.regexStr = `^${this.commandChar}\\ ?((?:\\S*\\ )*\\S+)`;
 
         BotParametersSingleton.getInstance().onBotParametersUpdated((oldParameters, newParameters) => {
             this.admins = [process.env.ADMIN_ID, ...(newParameters.admins || [])];
@@ -27,11 +27,12 @@ export default abstract class ACommandModule extends ABotModules {
         let match : string[] = null;
         if (adminMessage) {
             // Is message a command
-            match = new RegExp(this.regexStr, 'g').exec(message.cleanContent);
+            match = new RegExp(this.regexStr, 'g').exec(message.content);
         }
 
         if (match) {
             const command: string = match[1]; // We take the first group
+
             const [ commandKey, ...argv ] = command.split(/\s+/);
 
             const commandCallback = this.commandMap[commandKey];
