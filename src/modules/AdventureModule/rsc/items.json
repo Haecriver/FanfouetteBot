@@ -1,0 +1,12 @@
+[{
+    "key": "sword",
+    "name": "Epée",
+    "description": "Juste une simple épée",
+    "emoji": "🗡" 
+},
+{
+    "key": "diamond",
+    "name": "diamant",
+    "description": "Le diamant de la victoire",
+    "emoji": "💎"
+}]

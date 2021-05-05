@@ -4,6 +4,7 @@ import DaoSingleton from './dao/DaoSingleton';
 import EDaoType from './dao/EDaoType';
 import ParametersModule from './modules/ParametersModule/ParametersModule';
 import BullyModule from './modules/BullyModule/BullyModule';
+import AdventureModule from './modules/AdventureModule/AdventureModule';
 
 // Init me token
 const CONFIG = process.env
@@ -22,6 +23,7 @@ const activatedModules = [
     new PingPongMondule(),
     new ParametersModule(),
     new BullyModule(),
+    new AdventureModule(),
 ];
 
 // Init ZE bot

@@ -1,0 +1,8 @@
+[{
+    "title": "Prairie",
+    "description": "Une grande prairie verdoyante",
+
+    "accessibleItems": ["sword"],
+    "lockedItems": ["diamond"],
+    "unlockerItems": [{ "item": "sword", "description": "Vous creusez le sol avec votre épée et trouver un diamant" }]
+}]
