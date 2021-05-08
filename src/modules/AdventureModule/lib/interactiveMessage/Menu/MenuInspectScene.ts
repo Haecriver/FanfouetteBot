@@ -16,16 +16,13 @@ export default class MenuInspectScene extends AMenu {
         return  this.game.currentScene.hasBeenUnlocked ? this.game.currentScene.lockedItems : [];
     }
 
-    private getUnlockerItems = () => {
-        return this.game.currentScene.unlockerItems;
-    }
-
     private tryToFetchAvailableItems = (messageReaction: MessageReaction) => {
         let hasReacted = false;
         let fromAccessible = true;
 
         // Try accessible items
-        let usedItemIndex = this.getAccessibleItems().findIndex((item) => item.emoji === messageReaction.emoji.name);
+        let usedItemIndex =
+            this.getAccessibleItems().findIndex(({ item }) => item.emoji === messageReaction.emoji.name);
 
         // Else try in locked items if the scene has been unlocked
         if (usedItemIndex === -1) {
@@ -64,7 +61,7 @@ export default class MenuInspectScene extends AMenu {
     }
 
     protected addMenuReaction = (message: Message) => {
-        this.getAccessibleItems().forEach((item) => {
+        this.getAccessibleItems().forEach(({ item }) => {
             message.react(item.emoji);
         });
 

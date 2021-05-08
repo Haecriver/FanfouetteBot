@@ -1,8 +1,14 @@
 [{
-    "key": "sword",
+    "key": "dagger",
     "name": "Epée",
     "description": "Juste une simple épée",
     "emoji": "🗡" 
+},
+{
+    "key": "clover",
+    "name": "trèfle à 4 feuilles",
+    "description": "Un trèfle porte-bonheur",
+    "emoji": "🍀"
 },
 {
     "key": "diamond",

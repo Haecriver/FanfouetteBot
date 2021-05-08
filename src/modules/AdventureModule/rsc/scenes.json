@@ -1,8 +1,29 @@
-[{
-    "title": "Prairie",
-    "description": "Une grande prairie verdoyante",
+[
+    {
+        "title": "L'arbre solitaire",
+        "description": [
+            "Vous vous trouvez devant un arbre au milieu d'un clairière 🌳",
+            "C'est un vieux chaine qui semble avoir survécu à mille et une guerres."
+        ],
 
-    "accessibleItems": ["sword"],
-    "lockedItems": ["diamond"],
-    "unlockerItems": [{ "item": "sword", "description": "Vous creusez le sol avec votre épée et trouver un diamant" }]
-}]
+        "accessibleItems": [{"indication": "Vous entre-apercevez ce qui pourrait être une poignet de dague parmis les racines noueuses.","item": "sword" }],
+        "lockedItems": [],
+        "unlockerItems": []
+    },
+    {
+        "title": "Prairie",
+        "description": "Une large prairie verdoyante s'étendant à perte de vue ☘🌻☘🌱",
+
+        "accessibleItems": ["clover"],
+        "lockedItems": ["diamond"],
+        "unlockerItems": [{ "item": "dagger", "description": "Vous creusez le sol avec votre épée et trouver un diamant" }]
+    },
+    {
+        "title": "Forêt",
+        "description": "Vous faites face à une épaisse foret de conifères 🌲🌲🌲",
+    
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    }
+]

@@ -3,7 +3,7 @@ import Game from "../Game";
 
 export default abstract class AIteractiveMessage {
     public title: string;
-    protected description: string;
+    protected description: string | string[];
 
     private collector: ReactionCollector;
 
@@ -13,7 +13,14 @@ export default abstract class AIteractiveMessage {
     }
 
     public getDescription = () => {
-        return this.description;
+        let toSend = this.description;
+        if (Array.isArray(this.description)) {
+            toSend = "";
+            this.description.forEach(str => {
+                toSend += `${str}\n`;
+            });
+        }
+        return toSend;
     }
 
     private setCollector(message: Message) {
