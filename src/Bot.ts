@@ -1,8 +1,8 @@
 import { Client } from 'discord.js';
 import ABotModules from './modules/ABotModule';
 import Logger from './logger/Logger';
-import ParametersModuleSingleton from './singletons/BotParametersSingleton';
-import LoggerSingleton from './singletons/LoggerSingleton';
+import ParametersModuleSingleton from './dao/BotParametersSingleton';
+import LoggerSingleton from './logger/LoggerSingleton';
 
 class Bot {
     // Create an instance of a Discord client

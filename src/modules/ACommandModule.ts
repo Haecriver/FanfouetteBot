@@ -1,6 +1,6 @@
 import { Message, Snowflake } from "discord.js";
 import ABotModules from "./ABotModule";
-import BotParametersSingleton from "../singletons/BotParametersSingleton";
+import BotParametersSingleton from "../dao/BotParametersSingleton";
 
 export default abstract class ACommandModule extends ABotModules {
 

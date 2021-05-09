@@ -23,7 +23,7 @@ export default class AdventureModule extends ACommandModule {
         const channelId = message.channel.id;
 
         if (!this.games.has(authorId) && !this.channelsInUse.has(channelId)) {
-            this.games.set(authorId, Game.generateGame(message.channel as TextChannel));
+            this.games.set(authorId, Game.generateGame(message.channel as TextChannel, authorId));
             this.channelsInUse.add(channelId);
         } else {
             if (this.games.has(authorId)) {

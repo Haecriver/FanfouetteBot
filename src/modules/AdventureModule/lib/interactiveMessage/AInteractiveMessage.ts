@@ -20,12 +20,15 @@ export default abstract class AIteractiveMessage {
                 toSend += `${str}\n`;
             });
         }
+        toSend += this.getAdditionnalDescription();
         return toSend;
     }
 
+    protected getAdditionnalDescription = () => '';
+
     private setCollector(message: Message) {
         this.stopCollector();
-        this.collector = message.createReactionCollector((reaction, user) => user.id !== message.author.id); // Not me
+        this.collector = message.createReactionCollector((reaction, user) => user.id === this.game.currentUserId);
         this.collector.on('collect', collected  => {
             if (!this.onReaction(collected)) {
                 // If this reaction was could not be used

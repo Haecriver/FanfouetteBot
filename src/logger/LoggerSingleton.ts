@@ -1,7 +1,7 @@
 import { Channel } from "discord.js";
-import ConsoleLogger from "../logger/LoggerImplementations/ConsoleLogger";
-import DiscordLogger from "../logger/LoggerImplementations/DiscordLogger";
-import MultipleLogger from "../logger/LoggerImplementations/MultipleLogger";
+import ConsoleLogger from "./LoggerImplementations/ConsoleLogger";
+import DiscordLogger from "./LoggerImplementations/DiscordLogger";
+import MultipleLogger from "./LoggerImplementations/MultipleLogger";
 
 export default class LoggerSingleton {
     private constructor() {};

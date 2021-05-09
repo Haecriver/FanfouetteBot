@@ -1,4 +1,4 @@
-import LoggerSingleton from "../singletons/LoggerSingleton";
+import LoggerSingleton from "./LoggerSingleton";
 
 const Logger = {
     log: (msg: string) => LoggerSingleton.getInstance().log(msg),

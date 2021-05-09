@@ -1,4 +1,4 @@
-import DaoSingleton from "../dao/DaoSingleton";
+import DaoSingleton from "./DaoSingleton";
 import BotParameters from "../models/BotParameters";
 import Logger from "../logger/Logger";
 import EventEmitter from "events";

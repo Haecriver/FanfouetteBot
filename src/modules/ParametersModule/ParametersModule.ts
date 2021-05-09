@@ -1,7 +1,7 @@
 import { Channel, TextChannel, Message } from "discord.js";
 import ACommandModule from "../ACommandModule";
-import LoggerSingleton from "../../singletons/LoggerSingleton";
-import BotParametersSingleton from "../../singletons/BotParametersSingleton";
+import LoggerSingleton from "../../logger/LoggerSingleton";
+import BotParametersSingleton from "../../dao/BotParametersSingleton";
 
 
 export default class ParametersModuleSingleton extends ACommandModule {

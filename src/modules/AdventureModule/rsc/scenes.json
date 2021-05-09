@@ -6,7 +6,10 @@
             "C'est un vieux chaine qui semble avoir survécu à mille et une guerres."
         ],
 
-        "accessibleItems": [{"indication": "Vous entre-apercevez ce qui pourrait être une poignet de dague parmis les racines noueuses.","item": "sword" }],
+        "accessibleItems": [{
+            "indication": "Vous entre-apercevez ce qui pourrait être une poignet de dague parmis les racines noueuses.",
+            "item": "dagger" 
+        }],
         "lockedItems": [],
         "unlockerItems": []
     },
@@ -16,12 +19,75 @@
 
         "accessibleItems": ["clover"],
         "lockedItems": ["diamond"],
-        "unlockerItems": [{ "item": "dagger", "description": "Vous creusez le sol avec votre épée et trouver un diamant" }]
+        "unlockerItems": [
+            { 
+                "item": "dagger",
+                "unlock": "diamond",
+                "description": "Vous creusez le sol avec votre épée et trouver un diamant" 
+            }
+        ]
     },
     {
         "title": "Forêt",
         "description": "Vous faites face à une épaisse foret de conifères 🌲🌲🌲",
-    
+        "lockedDirections": { 
+            "indicationNotUnlocked": "Elle est tellement épaisse que vous ne pouvez meme pas passer !",  
+            "item": "axe",
+            "onUnlock": "Vous rasez cette maudite forêt"
+        },
+
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    },
+    {
+        "title": "Chateau",
+        "description": "Vous vous trouvez devant un grand chateau. 🏰",
+
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    },
+    {
+        "title": "La tête",
+        "description": "Une immense structure de pierre en forme de visage se trouve ici. Elle semble animée et vous observe. 🗿",
+        "lockedDirections": { 
+            "indicationNotUnlocked": "La tête semble triste et ne semble pas vouloir bouger. Peut être qu'un cadeau lui ferait changer d'avis.",  
+            "item": "clover",
+            "onUnlock": "La tête de pierre rougit. Dans un grondement elle vous ouvre l'accès se trouvant derrière elle."
+        },
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    }, 
+    {
+        "title": "Vaisseau spatial",
+        "description": "Devant vous une immense barge de métal. Elle semble faite pour naviguer dans les étoiles. 🚀",
+
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    },
+    {
+        "title": "Monticule",
+        "description": "Vous vous trouvez devant un tas de terre très haut. Ils semblent grouiller de vie. 🐜🐜🐜",
+
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    },
+    {
+        "title": "Tour du magicien",
+        "description": "Vous vous trouvez devant une haute tour d'ivoire, un homme a longue barbe blanche se tient devant vous. 🧙‍♂️",
+
+        "accessibleItems": [],
+        "lockedItems": [],
+        "unlockerItems": []
+    },
+    {
+        "title": "Banlieu de Paris",
+        "description": "Vous reconnaissez la banlieu du 93. 🏙",
+
         "accessibleItems": [],
         "lockedItems": [],
         "unlockerItems": []

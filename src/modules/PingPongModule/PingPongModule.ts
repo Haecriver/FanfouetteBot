@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import Logger from "../../logger/Logger";
 import ACommandModule from "../ACommandModule";
-import BotParametersSingleton from "../../singletons/BotParametersSingleton";
+import BotParametersSingleton from "../../dao/BotParametersSingleton";
 
 class PingPongMondule extends ACommandModule {
     protected onSimpleMessage: (message: Message) => void = null;

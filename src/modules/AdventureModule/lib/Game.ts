@@ -1,4 +1,4 @@
-import { EmojiIdentifierResolvable, Message, MessageReaction, ReactionCollector, TextChannel } from "discord.js";
+import { EmojiIdentifierResolvable, Message, MessageReaction, ReactionCollector, TextChannel, User } from "discord.js";
 import Item from "./Item";
 import Scene from "./interactiveMessage/Scene";
 import AMenu from "./interactiveMessage/Menu/AMenu";
@@ -12,21 +12,27 @@ import AIteractiveMessage from "./interactiveMessage/AInteractiveMessage";
 
 export default class Game {
     public usedChannel: TextChannel;
+    public currentUserId: string;
 
     private initialScene: Scene;
     public currentScene: Scene;
     public currentInteractiveMessage: AIteractiveMessage;
     public inventory: Item[] = [];
+
+    public itemEmojiMap: Map<EmojiIdentifierResolvable, Item>;
     private menuMap: Map<EmojiIdentifierResolvable, AMenu> = new Map();
 
-    public constructor(channel: TextChannel) {
+    public constructor(channel: TextChannel, currentUserId: string) {
+        this.currentUserId = currentUserId;
         this.usedChannel = channel;
 
         const itemMap = new Map();
+        this.itemEmojiMap = new Map();
         itemsJSON.forEach((itemJSON) => {
             const item = new Item();
             item.initiateFromJSON(itemJSON as any);
             itemMap.set(item.key, item);
+            this.itemEmojiMap.set(item.emoji, item);
         });
 
         const scenes = scenesJSON.map((sceneJSON) => {
@@ -49,8 +55,8 @@ export default class Game {
         });
     }
 
-    public static generateGame = (channel: TextChannel) => {
-        const newGame = new Game(channel);
+    public static generateGame = (channel: TextChannel, authorId: string) => {
+        const newGame = new Game(channel, authorId);
 
         newGame.load(newGame.initialScene);
         return newGame;
